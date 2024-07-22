@@ -5,7 +5,11 @@ from json import load
 
 def config_logging() -> logging.Logger:
     cur_dir = Path(__file__).parent.resolve()
-    config_file = f"{cur_dir}/configs/logging_config.json"
+    logs_dir = f"{cur_dir}/logs"
+    if not Path(logs_dir).exists():
+        Path(logs_dir).mkdir()
+    config_file = f"{cur_dir}/config/logging_config.json"
+
     with open(config_file) as filein:
         config_settings = load(filein)
     logging.config.dictConfig(config_settings)
